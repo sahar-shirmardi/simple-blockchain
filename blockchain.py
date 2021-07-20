@@ -37,26 +37,22 @@ class Block():
                         self.nonce)
                     )
 
-
 class Blockchain():
+    
     difficulty = 4
-
 
     def __init__(self, chain = []):
         self.chain = chain
     
     def add(self, block):
-        self.chain.append({
-            'hash': block.hash(),
-            'prev': block.prev_hash, 
-            'number': block.number, 
-            'data': block.data, 
-            'nonce': block.nonce
-            })
+        self.chain.append(block)
+
+    def remove(self, block):
+        self.chain.remove(block)
 
     def mine(self, block):
         try:
-            block.prev_hash = self.chain[-1].get('hash')
+            block.prev_hash = self.chain[-1].hash()
         except IndexError:
             pass
         while True:
