@@ -4,7 +4,6 @@ import csv
 # read data records
 with open('./database/4records.csv', newline='') as f:
     reader = csv.reader(f)
-    print(reader)
     database = list(reader)
 
 def updatehash(*args):
@@ -90,7 +89,6 @@ def main():
         num +=1
         blockchain.mine(Block(data, num))
     
-    #print(blockchain.chain)
     for block in blockchain.chain:
         print(block)
 
