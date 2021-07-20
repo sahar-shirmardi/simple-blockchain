@@ -1,4 +1,11 @@
 from hashlib import sha256
+import csv
+
+# read data records
+with open('./database/4records.csv', newline='') as f:
+    reader = csv.reader(f)
+    print(reader)
+    database = list(reader)
 
 def updatehash(*args):
     hashing_text = ""
@@ -76,14 +83,10 @@ class Blockchain():
 
 def main():
     
-    #block = Block("trans1", 1)
-    #print(block)
-    
     blockchain = Blockchain()
-    DB = ["hello world", "what's up", "hello", "bye"]
     num = 0
     
-    for data in DB:
+    for data in database:
         num +=1
         blockchain.mine(Block(data, num))
     
