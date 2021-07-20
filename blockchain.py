@@ -61,21 +61,37 @@ class Blockchain():
             else:
                 block.nonce += 1
 
+    # Validation:
+    #   1.each block hash should start with the number of zeros as defined by difficulty
+    #   2.blocks should be connected 
+    def validate(self):
+        for i in range(1, len(self.chain)):
+            _prev = self.chain[i].prev_hash  
+            _curr = self.chain[i-1].hash()
+            if _prev != _curr or _curr[:self.difficulty] != '0' * self.difficulty:
+                return False
+        return True
+        
+
 
 def main():
+    
     #block = Block("trans1", 1)
     #print(block)
+    
     blockchain = Blockchain()
     DB = ["hello world", "what's up", "hello", "bye"]
     num = 0
+    
     for data in DB:
         num +=1
         blockchain.mine(Block(data, num))
+    
     #print(blockchain.chain)
     for block in blockchain.chain:
         print(block)
 
-
+    print(blockchain.validate())
 
 if __name__ == "__main__":
     main()
